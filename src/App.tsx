@@ -10,13 +10,12 @@ const App = () => {
   return (
     <main className="flex h-screen">
       {/* public routes */}
-      <Route element={<AuthLayout />}>
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/register" element={<RegisterForm />} />
-      </Route>
       <Routes>
+        <Route element={<AuthLayout />}>
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/register" element={<RegisterForm />} />
+        </Route>
 
-        
         {/* private routes */}
         <Route element={<RootLayout />}>
           <Route index element={<Home />} />
