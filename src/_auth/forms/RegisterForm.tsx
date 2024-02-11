@@ -27,10 +27,6 @@ function RegisterForm() {
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
   const navigate = useNavigate();
 
-  const { mutateAsync: createUserAccount, isLoading: isCreatingAccount } =
-    useCreateUserAccount();
-  const { mutateAsync: login, isLoading: isLogin } = useLoginAccount();
-
   // 1. Define your form.
   const form = useForm<z.infer<typeof RegisterValidation>>({
     resolver: zodResolver(RegisterValidation),
@@ -42,28 +38,42 @@ function RegisterForm() {
     },
   });
 
-  // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof RegisterValidation>) {
-    const newUser = await createUserAccount(values);
+  const { mutateAsync: createUserAccount, isPending: isCreatingAccount } =
+    useCreateUserAccount();
+  const { mutateAsync: login, isPending: isLoggedIn } = useLoginAccount();
 
-    !newUser && toast({ title: "Register failed. Please try again" });
+  async function onSubmit(user: z.infer<typeof RegisterValidation>) {
+    try {
+      const newUser = await createUserAccount(user);
 
-    const session = await login({
-      email: values.email,
-      password: values.password,
-    });
+      if (!newUser) {
+        toast({ title: "Register failed. Please try again" });
+      }
 
-    !session && toast({ title: "Login failed. Please try again" });
+      const session = await login({
+        email: user.email,
+        password: user.password,
+      });
 
-    const isLogin = await checkAuthUser();
+      if (!session) {
+        toast({ title: "Login failed. Please try again" });
+        navigate("/login");
+        return;
+      }
+      const isLogin = await checkAuthUser();
 
-    if (isLogin) {
-      form.reset();
-      navigate("/");
-    } else {
-      toast({ title: "Register failed. Please try again" });
+      if (isLogin) {
+        form.reset();
+        navigate("/");
+      } else {
+        toast({ title: "Register failed. Please try again" });
+        return;
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
+
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
@@ -143,7 +153,7 @@ function RegisterForm() {
             )}
           />
           <Button type="submit" className="shad-button_primary">
-            {isCreatingAccount ? (
+            {isCreatingAccount || isUserLoading || isLoggedIn ? (
               <div className="flex-center gap-2">
                 <Loader /> Loading
               </div>

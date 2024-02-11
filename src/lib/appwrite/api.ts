@@ -39,8 +39,8 @@ export const saveUserToDB = async (user: {
 }) => {
   try {
     const newUser = await databases.createDocument(
-      appwriteConfig.userCollectionId,
       appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
       ID.unique(),
       user,
     );
@@ -59,10 +59,21 @@ export const login = async (user: { email: string; password: string }) => {
     console.log(error);
   }
 };
-
-export const getCurrentUser = async () => {
+// ============================== GET ACCOUNT
+export const getAccount = async () => {
   try {
     const currentAccount = await account.get();
+
+    return currentAccount;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// ============================== GET USER
+export const getCurrentUser = async () => {
+  try {
+    const currentAccount = await getAccount();
 
     if (!currentAccount) throw Error;
 
@@ -77,5 +88,6 @@ export const getCurrentUser = async () => {
     return currentUser.documents[0];
   } catch (error) {
     console.log(error);
+    return null;
   }
 };
