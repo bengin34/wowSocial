@@ -8,7 +8,7 @@ export type IContextType = {
 };
 
 export type INavLink = {
-  imgURL: string;
+  icon: React.FC;
   route: string;
   label: string;
 };
