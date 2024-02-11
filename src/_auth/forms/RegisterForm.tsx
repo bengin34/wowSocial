@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import {
   Form,
   FormControl,
@@ -14,11 +15,21 @@ import { useForm } from "react-hook-form";
 import { RegisterValidation } from "@/lib/validations";
 import { z } from "zod";
 import Loader from "@/components/shared/Loader";
-import { Link } from "react-router-dom";
-import { createUserAccount } from "@/lib/appwrite/api";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  useCreateUserAccount,
+  useLoginAccount,
+} from "@/lib/react-query/queriesAndMutations";
+import { useUserContext } from "@/context/AuthContext";
 
 function RegisterForm() {
-  const isLoading = false;
+  const { toast } = useToast();
+  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+  const navigate = useNavigate();
+
+  const { mutateAsync: createUserAccount, isLoading: isCreatingAccount } =
+    useCreateUserAccount();
+  const { mutateAsync: login, isLoading: isLogin } = useLoginAccount();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof RegisterValidation>>({
@@ -33,8 +44,25 @@ function RegisterForm() {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof RegisterValidation>) {
-    const newUser = await createUserAccount(values)
-    console.log(newUser)
+    const newUser = await createUserAccount(values);
+
+    !newUser && toast({ title: "Register failed. Please try again" });
+
+    const session = await login({
+      email: values.email,
+      password: values.password,
+    });
+
+    !session && toast({ title: "Login failed. Please try again" });
+
+    const isLogin = await checkAuthUser();
+
+    if (isLogin) {
+      form.reset();
+      navigate("/");
+    } else {
+      toast({ title: "Register failed. Please try again" });
+    }
   }
   return (
     <Form {...form}>
@@ -115,7 +143,7 @@ function RegisterForm() {
             )}
           />
           <Button type="submit" className="shad-button_primary">
-            {isLoading ? (
+            {isCreatingAccount ? (
               <div className="flex-center gap-2">
                 <Loader /> Loading
               </div>
