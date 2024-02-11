@@ -59,6 +59,14 @@ export const login = async (user: { email: string; password: string }) => {
     console.log(error);
   }
 };
+export const logout = async () => {
+  try {
+    const session = await account.deleteSession("current");
+    return session;
+  } catch (error) {
+    console.log(error);
+  }
+};
 // ============================== GET ACCOUNT
 export const getAccount = async () => {
   try {
