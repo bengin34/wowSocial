@@ -1,4 +1,5 @@
 import { bottombarLinks } from "@/constants";
+import { INavLink } from "@/types";
 import { Link, useLocation } from "react-router-dom";
 
 const BottomBar = () => {
@@ -15,8 +16,8 @@ const BottomBar = () => {
               isActive && "bg-primary-600 rounded-[10px]"
             } flex-center flex-col gap-1 p-2 transition`}
           >
+            <Link className="flex flex-col gap-2 items-center " to={link.route}>
             <link.icon />
-            <Link className="flex gap-4 items-center " to={link.route}>
               <p className="tiny-medium text-light-2">{link.label}</p>
             </Link>
           </div>
