@@ -108,7 +108,8 @@ export const createPost = async (post: INewPost) => {
     if (!uploadedFile) throw Error;
 
     //Get file url
-    const fileUrl = getFilePreview(uploadedFile.$id);
+    const fileUrl = await getFilePreview(uploadedFile.$id);
+
     if (!fileUrl) {
       deleteFile(uploadedFile.$id);
       throw Error;
@@ -166,7 +167,8 @@ export const getFilePreview = async (fileId: string) => {
       "top",
       100,
     );
-    return fileUrl;
+   
+    return fileUrl?.href;
   } catch (error) {
     console.log(error);
   }
@@ -179,4 +181,15 @@ export const deleteFile = async (fileId: string) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const getRecentPosts = async () => {
+  const posts = await databases.listDocuments(
+    appwriteConfig.databaseId,
+    appwriteConfig.postCollectionId,
+    [Query.orderDesc("$createdAt"), Query.limit(20)],
+  );
+
+  if (!posts) throw Error;
+  return posts;
 };

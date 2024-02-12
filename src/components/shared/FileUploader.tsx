@@ -1,16 +1,17 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { FileWithPath, useDropzone } from "react-dropzone";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { Button } from "../ui/button";
 
 type FileUploaderProps = {
-  filedChange: (FILES: File[]) => void;
+  fieldChange: (files: File[]) => void;
   mediaUrl: string;
 };
 
 const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
-  const [fileUrl, setFileUrl] = useState("");
+  const [fileUrl, setFileUrl] = useState(mediaUrl);
   const [file, setFile] = useState<File[]>([]);
+
 
   const onDrop = useCallback(
     (acceptedFiles: FileWithPath[]) => {
@@ -26,6 +27,7 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
     accept: { "image/*": [".png", ".jpeg", ".jpg", ".svg"] },
   });
 
+  console.log(fileUrl)
   return (
     <div
       className="flex flex-center flex-col bg-dark-3 rounded-xl cursor-pointer"

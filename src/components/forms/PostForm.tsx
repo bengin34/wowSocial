@@ -41,8 +41,8 @@ const PostForm = ({ post }: PostFormProps) => {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof PostValidation>) {
-    const newPost = await createPost({ ...values, userId: user.id });
+  async function onSubmit(value: z.infer<typeof PostValidation>) {
+    const newPost = await createPost({ ...value, userId: user.id });
 
     if (!newPost) {
       toast({
@@ -84,7 +84,6 @@ const PostForm = ({ post }: PostFormProps) => {
                 <FileUploader
                   fieldChange={field.onChange}
                   mediaUrl={post?.imageUrl}
-                  
                 />
               </FormControl>
 
