@@ -11,6 +11,8 @@ import { logout } from "@/lib/appwrite/api";
 
 const LeftSideBar = () => {
   const { user } = useUserContext();
+
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
