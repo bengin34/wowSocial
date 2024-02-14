@@ -34,7 +34,7 @@ const App = () => {
           <Route path="/saved" element={<Saved />} />
           <Route path="/allusers" element={<AllUsers />} />
           <Route path="/create-post" element={<CreatePost />} />
-          <Route path="/updte-post/:id" element={<UpdatePost />} />
+          <Route path="/update-post/:id" element={<UpdatePost />} />
           <Route path="/posts/:id" element={<PostDetails />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/update-profile" element={<UpdateProfile />} />
