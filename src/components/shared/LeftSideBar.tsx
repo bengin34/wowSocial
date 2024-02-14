@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Button } from "../ui/button";
 import { MdOutlineLogout } from "react-icons/md";
@@ -7,10 +6,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useUserContext } from "@/context/AuthContext";
 import { sidebarLinks } from "@/constants";
 import { INavLink } from "@/types";
-import { logout } from "@/lib/appwrite/api";
+
 
 const LeftSideBar = () => {
   const { user } = useUserContext();
+  const { mutate: logout, isSuccess } = useLogoutAccount();
 
 
   const navigate = useNavigate();
