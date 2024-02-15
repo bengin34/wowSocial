@@ -30,15 +30,17 @@ type PostFormProps = {
 };
 
 const PostForm = ({ post, action }: PostFormProps) => {
+  const { user } = useUserContext();
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
   const { mutateAsync: createPost, isPending: isLoadingCreate } =
     useCreatePost();
 
   const { mutateAsync: updatePost, isPending: isLoadingUpdate } =
     useUpdatePost();
 
-  const { user } = useUserContext();
-  const { toast } = useToast();
-  const navigate = useNavigate();
+ 
 
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
@@ -64,7 +66,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
           title: "Please try again",
         });
       }
-      return navigate(`/posts/${post.$id}`);
+      return navigate(`/post/${post.$id}`);
     }
 
     const newPost = await createPost({ ...value, userId: user.id });

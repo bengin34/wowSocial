@@ -6,15 +6,17 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useUserContext } from "@/context/AuthContext";
 import { sidebarLinks } from "@/constants";
 import { INavLink } from "@/types";
-
+import { useEffect } from "react";
 
 const LeftSideBar = () => {
   const { user } = useUserContext();
   const { mutate: logout, isSuccess } = useLogoutAccount();
-
-
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (isSuccess) navigate(0);
+  }, [isSuccess]);
 
   return (
     <nav className="leftsidebar">

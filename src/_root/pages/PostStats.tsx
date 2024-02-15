@@ -76,7 +76,9 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
       <div className="flex gap-2">
         <div className="cursor-pointer" onClick={handleSave}>
           {isSavingPost || isDeletingSaved ? (
-            <Loader />
+                <div className="flex-center w-full h-full">
+                <Loader />
+              </div>
           ) : isSaved ? (
             <FaBookmark size={20} color="red" />
           ) : (
