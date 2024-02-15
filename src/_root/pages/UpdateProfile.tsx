@@ -20,6 +20,9 @@ import { useGetUserById, useUpdateUser } from "@/lib/react-query/queriesAndMutat
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import ProfileUploader from "@/components/shared/ProfileUploader";
+import { ProfileValidation } from "@/lib/validations";
+import { MdEdit } from "react-icons/md";
+import { Textarea } from "@/components/ui/textarea";
 
 
 const UpdateProfile = () => {
@@ -80,13 +83,7 @@ const UpdateProfile = () => {
     <div className="flex flex-1">
       <div className="common-container">
         <div className="flex-start gap-3 justify-start w-full max-w-5xl">
-          <img
-            src="/assets/icons/edit.svg"
-            width={36}
-            height={36}
-            alt="edit"
-            className="invert-white"
-          />
+        <MdEdit size={24} />
           <h2 className="h3-bold md:h2-bold text-left w-full">Edit Profile</h2>
         </div>
 
