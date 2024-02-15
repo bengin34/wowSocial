@@ -63,7 +63,9 @@ const PostDetails = () => {
                 <Button
                   onClick={handleDelete}
                   variant="ghost"
-                  className="ghost_details-delete_btn"
+                  className={` "ghost_details-delete_btn" ${
+                    user.id !== post?.creator.$id && "hidden"
+                  }`}
                 >
                   <MdOutlineDeleteOutline size={24} color="red" />
                 </Button>
@@ -81,10 +83,9 @@ const PostDetails = () => {
                 ))}
               </ul>
             </div>
-                  <div className="w-full" >
-                    <PostStats  post={post} userId={user.id} />
-                  </div>
-
+            <div className="w-full">
+              <PostStats post={post} userId={user.id} />
+            </div>
           </div>
         </div>
       )}
