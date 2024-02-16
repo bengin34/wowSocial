@@ -1,19 +1,25 @@
 import Loader from "@/components/shared/Loader";
 import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/AuthContext";
-import { useGetPostById } from "@/lib/react-query/queriesAndMutations";
+import { useDeletePost, useGetPostById } from "@/lib/react-query/queriesAndMutations";
 import { calculateTimeDifference } from "@/lib/utils";
 import { MdEdit, MdOutlineDeleteOutline } from "react-icons/md";
 
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import PostStats from "./PostStats";
 
 const PostDetails = () => {
   const { id } = useParams();
   const { data: post, isPending } = useGetPostById(id || "");
   const { user } = useUserContext();
+  const { mutate: deletePost } = useDeletePost();
+  const navigate = useNavigate();
 
-  const handleDelete = () => {};
+  const handleDeletePost = () => {
+    deletePost({ postId: id, imageId: post?.imageId });
+    navigate(-1);
+  };
+
   return (
     <div className="post_details-container">
       {isPending ? (
@@ -63,7 +69,7 @@ const PostDetails = () => {
                   <MdEdit size={24} />
                 </Link>
                 <Button
-                  onClick={handleDelete}
+                  onClick={handleDeletePost}
                   variant="ghost"
                   className={` "ghost_details-delete_btn" ${
                     user.id !== post?.creator.$id && "hidden"
