@@ -13,11 +13,11 @@ App enables to user:
 - searched saved posts
 
 ## Screenshots
-
 <img width="1694" alt="Ekran Resmi 2024-02-25 19 41 28" src="https://github.com/bengin34/wowSocial/assets/118957608/0688fd87-518f-4231-8e6a-9254d97b541f">
 
 <img width="1668" alt="Ekran Resmi 2024-02-25 19 45 06" src="https://github.com/bengin34/wowSocial/assets/118957608/421884ce-4b78-4083-bf9a-362d69fcf2c8">
 
+![wow-ezgif com-video-to-gif-converter](https://github.com/bengin34/bengin34/assets/118957608/5fe8a570-bdfa-4e1c-8921-0aeade9e536c)
 ## Code style
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
