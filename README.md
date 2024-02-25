@@ -1,30 +1,25 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project title
+# WOW Media ( Social Media App )
 
-Currently, two official plugins are available:
+## Motivation
+It is an example of how React, Tanstack Query, Appwrite and Tailwind CSS works.
+<br>
+App enables to user:
+- to CRUD operations on posts
+- add description, image, location and tags
+- like save post
+- infinite scroll
+- searched saved posts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Screenshots
 
-## Expanding the ESLint configuration
+<img width="1694" alt="Ekran Resmi 2024-02-25 19 41 28" src="https://github.com/bengin34/wowSocial/assets/118957608/0688fd87-518f-4231-8e6a-9254d97b541f">
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+<img width="1668" alt="Ekran Resmi 2024-02-25 19 45 06" src="https://github.com/bengin34/wowSocial/assets/118957608/421884ce-4b78-4083-bf9a-362d69fcf2c8">
 
-- Configure the top-level `parserOptions` property like this:
+## Code style
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## License
+ © [bengin34]
